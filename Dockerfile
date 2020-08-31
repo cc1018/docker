@@ -151,3 +151,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     echo "deb https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/sbsa /" > /etc/apt/sources.list.d/nvidia-ml.list && \
     apt-get purge --autoremove -y curl \
     && rm -rf /var/lib/apt/lists/*
+
+# For libraries in the cuda-compat-* package: https://docs.nvidia.com/cuda/eula/index.html#attachment-a
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    cuda-cudart-11-0=11.0.221-1 \
+    && ln -s cuda-11.0 /usr/local/cuda && \
+    rm -rf /var/lib/apt/lists/*
+
+# Required for nvidia-docker v1
+RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
+    echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
+
+ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
+ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64
+
+# nvidia-container-runtime
+ENV NVIDIA_VISIBLE_DEVICES all
+ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
+ENV NVIDIA_REQUIRE_CUDA "cuda>=11.0"
+
