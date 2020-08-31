@@ -140,7 +140,7 @@ USER root
 RUN fix-permissions /etc/jupyter/
 
 # Switch back to jovyan to avoid accidental container runs as root
-USER $NB_UID
+#USER $NB_UID
 
 WORKDIR $HOME
 
