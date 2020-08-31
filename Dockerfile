@@ -52,11 +52,11 @@ RUN chmod a+rx /usr/local/bin/fix-permissions
 # Enable prompt color in the skeleton .bashrc before creating the default NB_USER
 RUN sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /etc/skel/.bashrc
 
-# Create NB_USER wtih name jovyan user with UID=1000 and in the 'users' group
-# and make sure these dirs are writable by the `users` group.
-#RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
-#    sed -i.bak -e 's/^%admin/#%admin/' /etc/sudoers && \
-#    sed -i.bak -e 's/^%sudo/#%sudo/' /etc/sudoers && \
+ Create NB_USER wtih name jovyan user with UID=1000 and in the 'users' group
+ and make sure these dirs are writable by the `users` group.
+RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
+    sed -i.bak -e 's/^%admin/#%admin/' /etc/sudoers && \
+    sed -i.bak -e 's/^%sudo/#%sudo/' /etc/sudoers && \
 #    useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
 #    mkdir -p $CONDA_DIR && \
 #    chown $NB_USER:$NB_GID $CONDA_DIR && \
@@ -69,8 +69,8 @@ WORKDIR $HOME
 ARG PYTHON_VERSION=default
 
 # Setup work directory for backward-compatibility
-#RUN mkdir /home/$NB_USER/work && \
-#    fix-permissions /home/$NB_USER
+RUN mkdir /home/$NB_USER/work && \
+    fix-permissions /home/$NB_USER
 
 # Install conda as jovyan and check the md5 sum provided on the download site
 ENV MINICONDA_VERSION=4.8.3 \
@@ -78,9 +78,9 @@ ENV MINICONDA_VERSION=4.8.3 \
     CONDA_VERSION=4.8.3
 
 WORKDIR /tmp
-RUN wget --quiet https://repo.continuum.io/miniconda/Miniconda3-py38_${MINICONDA_VERSION}-Linux-x86_64.sh && \
+RUN wget --quiet https://repo.continuum.io/miniconda/Miniconda3-py37_${MINICONDA_VERSION}-Linux-x86_64.sh && \
     echo "${MINICONDA_MD5} *Miniconda3-py38_${MINICONDA_VERSION}-Linux-x86_64.sh" | md5sum -c - && \
-    /bin/bash Miniconda3-py38_${MINICONDA_VERSION}-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
+    /bin/bash Miniconda3-py37_${MINICONDA_VERSION}-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
     rm Miniconda3-py38_${MINICONDA_VERSION}-Linux-x86_64.sh && \
     echo "conda ${CONDA_VERSION}" >> $CONDA_DIR/conda-meta/pinned && \
     conda config --system --prepend channels conda-forge && \
