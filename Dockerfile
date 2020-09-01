@@ -227,6 +227,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     texlive-plain-generic \
     texlive-fonts-extra \
     tzdata \
-    nona \
     && apt-get clean && \
     rm -rf /var/lib/apt/lists/*
