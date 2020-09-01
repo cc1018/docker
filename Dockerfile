@@ -200,6 +200,31 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libcudnn8=$CUDNN_VERSION-1+cuda11.0 \
     libcudnn8-dev=$CUDNN_VERSION-1+cuda11.0 \
     build-essential \
+    curl \
+    libfreetype6-dev \
+    libhdf5-serial-dev \
+    libzmq3-dev \
+    pkg-config \
+    software-properties-common \
+    unzip \
+    emacs-nox \
+    vim-tiny \
+    git \
+    inkscape \
+    jed \
+    libsm6 \
+    libxext-dev \
+    libxrender1 \
+    lmodern \
+    netcat \
+    python-dev \
+    texlive-xetex \
+    texlive-fonts-recommended \
+    texlive-plain-generic \
+    texlive-fonts-extra \
+    tzdata \
+    nona \
+    && apt-get clean && \
     && apt-mark hold libcudnn8 && \
     rm -rf /var/lib/apt/lists/*
 
