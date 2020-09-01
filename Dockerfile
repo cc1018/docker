@@ -210,3 +210,23 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-mark hold libcudnn8 && \
     rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    emacs-nox \
+    vim-tiny \
+    git \
+    inkscape \
+    jed \
+    libsm6 \
+    libxext-dev \
+    libxrender1 \
+    lmodern \
+    netcat \
+    python-dev \
+    texlive-xetex \
+    texlive-fonts-recommended \
+    texlive-plain-generic \
+    texlive-fonts-extra \
+    tzdata \
+    nona \
+    && apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
