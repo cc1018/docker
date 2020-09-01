@@ -200,6 +200,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libcudnn8=$CUDNN_VERSION-1+cuda11.0 \
     libcudnn8-dev=$CUDNN_VERSION-1+cuda11.0 \
     build-essential \
+    curl \
+    libfreetype6-dev \
+    libhdf5-serial-dev \
+    libzmq3-dev \
     && apt-mark hold libcudnn8 && \
     rm -rf /var/lib/apt/lists/*
 
