@@ -170,3 +170,29 @@ ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
 ENV NVIDIA_REQUIRE_CUDA "cuda>=10.2 brand=tesla,driver>=396,driver<397 brand=tesla,driver>=410,driver<411 brand=tesla,driver>=418,driver<419 brand=tesla,driver>=440,driver<441"
+
+ENV NCCL_VERSION 2.7.8
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    cuda-nvml-dev-$CUDA_PKG_VERSION \
+    cuda-command-line-tools-$CUDA_PKG_VERSION \
+    cuda-nvprof-$CUDA_PKG_VERSION \
+    cuda-npp-dev-$CUDA_PKG_VERSION \
+    cuda-libraries-dev-$CUDA_PKG_VERSION \
+    cuda-minimal-build-$CUDA_PKG_VERSION \
+    libcublas-dev=10.2.2.89-1 \
+    libnccl-dev=2.7.8-1+cuda10.2 \
+    && apt-mark hold libnccl-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs
+
+ENV CUDNN_VERSION 8.0.2.39
+
+LABEL com.nvidia.cudnn.version="${CUDNN_VERSION}"
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libcudnn8=$CUDNN_VERSION-1+cuda10.2 \
+    libcudnn8-dev=$CUDNN_VERSION-1+cuda10.2 \
+    && apt-mark hold libcudnn8 && \
+    rm -rf /var/lib/apt/lists/*
