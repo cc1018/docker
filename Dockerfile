@@ -77,7 +77,7 @@ RUN mkdir /home/$NB_USER/work && \
 
 # Install conda as jovyan and check the md5 sum provided on the download site
 ENV MINICONDA_VERSION=4.8.3 \
-    MINICONDA_MD5=d63adf39f2c220950a063e0529d4ff74 \
+    MINICONDA_MD5=751786b92c00b1aeae3f017b781018df \
     CONDA_VERSION=4.8.3
 
 WORKDIR /tmp
